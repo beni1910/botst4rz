@@ -185,34 +185,6 @@ axios.get(`https://mhankbarbar.herokuapp.com/daerah?q=${teks}`).then((res) => {
 })
 }
 
-            case 'sticker':
-            case 'stiker':
-                if (isMedia) {
-                    const mediaData = await decryptMedia(message)
-                    const imageBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
-                    await client.sendImageAsSticker(from, imageBase64, message.id)
-                } else if (quotedMsg && quotedMsg.type == 'image') {
-                    const mediaData = await decryptMedia(quotedMsg)
-                    const imageBase64 = `data:${quotedMsg.mimetype};base64,${mediaData.toString('base64')}`
-                    await client.sendImageAsSticker(from, imageBase64, message.id)
-                } else if (args.length >= 1) {
-                    const url = args[1]
-                    if (url.match(isUrl)) {
-                        await client.sendStickerfromUrl(from, url, { method: 'get' })
-                            .catch(err => console.log('Caught exception: ', err))
-                    } else {
-                        client.sendText(from, 'Url is invalid')
-                    }
-                } else {
-                    if(isGroupMsg) {
-                        client.sendTextWithMentions(from, `Dasar @${message.author} bodoh!, yang mau dijadiin stiker apa? lu cuma send teks *!stiker*. kalo mau bikin stiker send foto dengan caption *!stiker*.`)
-                    } else {
-                        client.reply(from, 'Dasar bodoh!, yang mau di jadiin stiker apa? Lu cuma send teks *!stiker*. kalo mau bikin stiker send foto dengan caption *!stiker*', message)
-                    })
-                }
-
-
-
 if (text == '#help'){
 const corohelp = await get.get('https://covid19.mathdro.id/api/countries/id').json()
 var date = new Date();
