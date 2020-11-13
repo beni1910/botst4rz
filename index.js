@@ -178,6 +178,13 @@ axios.get(`https://st4rz.herokuapp.com/api/wiki?q=${teks}`).then((res) => {
 })
 }
 
+if (text.includes("#listdaerah")){
+const teks = text.replace(/#listdaerah /, "")
+axios.get(`https://mhankbarbar.herokuapp.com/daerah?q=${teks}`).then((res) => {
+    conn.sendMessage(id, hasil ,MessageType.text);
+})
+}
+
 if (text == '#help'){
 const corohelp = await get.get('https://covid19.mathdro.id/api/countries/id').json()
 var date = new Date();
