@@ -12,12 +12,12 @@ const menu = require("./lib/menu.js");
 const donate = require("./lib/donate.js");
 const info = require("./lib/info.js");
 //
-const BotName = 'ST4RZ BOT 🤖'; // Nama Bot Whatsapp
-const instagramlu = 'https://instagram.com/bintang_nur_pradana'; // Nama Instagramlu cok
-const whatsapplu = '0819-4698-3575'; // Nomor whatsapplu cok
+const BotName = 'BOT_STYLE 🤖'; // Nama Bot Whatsapp
+const instagramlu = 'https://instagram.com/Beni_230'; // Nama Instagramlu cok
+const whatsapplu = '0821-1449-9086'; // Nomor whatsapplu cok
 const kapanbotaktif = '24 Jam'; // Kapan bot lu aktif
-const grupch1 = 'https://chat.whatsapp.com/FsAlnxqz6y2BhCQi5ayCLG'; // OFFICIAL GRUP LU 1
-const grupch2 = 'https://chat.whatsapp.com/KLW3UlFfeaH36Ucm5zRfCz'; // OFFICIAL GRUP LU 2
+const grupch1 = 'https://chat.whatsapp.com/F4iO1UxDaUOGE7itha7alG'; // OFFICIAL GRUP LU 1
+const grupch2 = 'https://chat.whatsapp.com/I7Dlk1FP6xO6F5RYgOUtTq'; // OFFICIAL GRUP LU 2
 //
 const
 {
@@ -184,6 +184,34 @@ axios.get(`https://mhankbarbar.herokuapp.com/daerah?q=${teks}`).then((res) => {
     conn.sendMessage(id, hasil ,MessageType.text);
 })
 }
+
+            case 'sticker':
+            case 'stiker':
+                if (isMedia) {
+                    const mediaData = await decryptMedia(message)
+                    const imageBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
+                    await client.sendImageAsSticker(from, imageBase64, message.id)
+                } else if (quotedMsg && quotedMsg.type == 'image') {
+                    const mediaData = await decryptMedia(quotedMsg)
+                    const imageBase64 = `data:${quotedMsg.mimetype};base64,${mediaData.toString('base64')}`
+                    await client.sendImageAsSticker(from, imageBase64, message.id)
+                } else if (args.length >= 1) {
+                    const url = args[1]
+                    if (url.match(isUrl)) {
+                        await client.sendStickerfromUrl(from, url, { method: 'get' })
+                            .catch(err => console.log('Caught exception: ', err))
+                    } else {
+                        client.sendText(from, 'Url is invalid')
+                    }
+                } else {
+                    if(isGroupMsg) {
+                        client.sendTextWithMentions(from, `Dasar @${message.author} bodoh!, yang mau dijadiin stiker apa? lu cuma send teks *!stiker*. kalo mau bikin stiker send foto dengan caption *!stiker*.`)
+                    } else {
+                        client.reply(from, 'Dasar bodoh!, yang mau di jadiin stiker apa? Lu cuma send teks *!stiker*. kalo mau bikin stiker send foto dengan caption *!stiker*', message)
+                    })
+                }
+
+
 
 if (text == '#help'){
 const corohelp = await get.get('https://covid19.mathdro.id/api/countries/id').json()
